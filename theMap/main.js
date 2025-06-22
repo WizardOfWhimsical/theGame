@@ -71,11 +71,11 @@ const centerTile = [
     [emptySpace, emptySpace, emptySpace]
 ]
 
-// const myMap = [
-//     [topLeftCornerTile, topCenterTile, topRightCornerTile],
-//     [leftCenterTile, centerTile, rightCenterTile],
-//     [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
-// ]
+const myMap = [
+    [topLeftCornerTile, topCenterTile, topRightCornerTile],
+    [leftCenterTile, centerTile, rightCenterTile],
+    [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
+]
 
 /*
 once i build all the pieces i can then make\
@@ -86,15 +86,18 @@ once the second number reaches 9 i can reset the
 incementer and add to j
 */
 // corner tiles
-buildTiles(topLeftCornerTile, 1)
-buildTiles(topRightCornerTile, 3)
-buildTiles(bottomLeftCornerTile, 7)
-buildTiles(bottomRightCornerTile, 9)
-buildTiles(topCenterTile, 2)
-buildTiles(rightCenterTile, 6)
-buildTiles(bottomCenterTile, 8)
-buildTiles(leftCenterTile, 4)
-buildTiles(centerTile, 5)
+// buildTiles(topLeftCornerTile, 1)
+// buildTiles(topRightCornerTile, 3)
+// buildTiles(bottomLeftCornerTile, 7)
+// buildTiles(bottomRightCornerTile, 9)
+// buildTiles(topCenterTile, 2)
+// buildTiles(rightCenterTile, 6)
+// buildTiles(bottomCenterTile, 8)
+// buildTiles(leftCenterTile, 4)
+// buildTiles(centerTile, 5)
+
+buildTiles(myMap)
+
 /*
 
 Now that the map is fully visable i need to place toon on screen and see if i can get him to move around with the key down events
@@ -116,32 +119,30 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
 // multidiminsional arrays dude
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function buildTiles(arrayOfTiles, num) {
+    function buildTiles(arrayOfTiles) {
         let i = 1;
-        let j = num;
-    for (let arrayOfTile of arrayOfTiles) {
-        for (let tiles of arrayOfTile) {
-           
-               document.getElementById("small"+[j]+"-tile" + [i]).innerHTML = tiles.visual; 
-            i++
-            // console.log(i) 
-            
+        let j = 1;
+        for (let arrayOfTile of arrayOfTiles) {
+            for (let tilesArray of arrayOfTile) {
+                
+                for (let tiles of tilesArray) {
+                    
+                    for (let tile of tiles) {
+                        let x = j;
+                         let y = (i % 9) + 1;   
+                            // console.log("X 1-9", x)
+                            // console.log("Y repeated 1-9", y)
+                            console.log(x,y)
+                            console.log(tile)
+// document.getElementById("small"+[x]+"-tile" + [y]).innerHTML = tile.visual; 
+document.getElementById("small"+[x]+"-tile" + [y]).innerHTML = tile.visual; 
+                i++
+                // console.log(i) 
+                     }
+                }j++
             }
         }
-       
+        
     }
 
     // function wholeMap() {

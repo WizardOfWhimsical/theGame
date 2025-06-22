@@ -131,12 +131,14 @@ now i have to set the x,y coor for a grid click event to target, pull values, an
                 for (let tiles of tilesArray) {
                     for (let tile of tiles) {
                         let x = j;
-                         let y = (i % 9) + 1;   
+                        let y = (i % 9) + 1;  
+                        let tileElement = document.getElementById("small" + [x] + "-tile" + [y])
                             // console.log("X 1-9", x)
                             // console.log("Y repeated 1-9", y)
                             console.log(x,y)
                             console.log(tile)
-                        document.getElementById("small" + [x] + "-tile" + [y]).innerHTML = tile.visual; 
+                        tileElement.innerHTML = tile.visual; 
+                        tileElement.setAttribute("data-coord", x+","+y)
                         ++i
 
                         // console.log(i) 

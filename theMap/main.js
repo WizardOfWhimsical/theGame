@@ -25,22 +25,51 @@ const topLeftCornerTile = [
     [wallBlock, emptySpace, emptySpace],
     [wallBlock, emptySpace, emptySpace]
 ]
-const bottomLeftCornerTile = [
-    [wallBlock, emptySpace, emptySpace],
-    [wallBlock, emptySpace, emptySpace],
-    [wallBlock, wallBlock, wallBlock]
+const topCenterTile = [
+    [wallBlock, wallBlock, wallBlock],
+    [emptySpace, emptySpace, emptySpace],
+    [emptySpace, emptySpace, emptySpace]
 ]
 const topRightCornerTile = [
     [wallBlock, wallBlock, wallBlock],
     [emptySpace, emptySpace, wallBlock],
     [emptySpace, emptySpace, wallBlock]
 ]
+const rightCenterTile = [
+    [emptySpace, emptySpace, wallBlock],
+    [emptySpace, emptySpace, wallBlock],
+    [emptySpace, emptySpace, wallBlock]
+]
+
+
 const bottomRightCornerTile = [
     [emptySpace, emptySpace, wallBlock],
     [emptySpace, emptySpace, wallBlock],
     [wallBlock, wallBlock, wallBlock]
 ]
 
+const bottomCenterTile = [
+   [emptySpace, emptySpace, emptySpace],
+    [emptySpace, emptySpace, emptySpace],
+    [wallBlock, wallBlock, wallBlock] 
+]
+const bottomLeftCornerTile = [
+    [wallBlock, emptySpace, emptySpace],
+    [wallBlock, emptySpace, emptySpace],
+    [wallBlock, wallBlock, wallBlock]
+]
+
+const leftCenterTile = [
+     [wallBlock, emptySpace, emptySpace],
+    [wallBlock, emptySpace, emptySpace],
+    [wallBlock, emptySpace, emptySpace]
+]
+
+const centerTile = [
+    [emptySpace, emptySpace, emptySpace],
+    [emptySpace, emptySpace, emptySpace],
+    [emptySpace, emptySpace, emptySpace]
+]
 
 /*
 once i build all the pieces i can then make\
@@ -50,10 +79,17 @@ look into a while loop
 once the second number reaches 9 i can reset the 
 incementer and add to j
 */
+// corner tiles
 buildTiles(topLeftCornerTile, 1)
-buildTiles(bottomLeftCornerTile,7)
 buildTiles(topRightCornerTile, 3)
-buildTiles(bottomRightCornerTile,9)
+buildTiles(bottomLeftCornerTile, 7)
+buildTiles(bottomRightCornerTile, 9)
+
+buildTiles(topCenterTile, 2)
+buildTiles(rightCenterTile, 6)
+buildTiles(bottomCenterTile, 8)
+buildTiles(leftCenterTile, 4)
+buildTiles(centerTile, 5)
 
 
 
@@ -87,7 +123,6 @@ buildTiles(bottomRightCornerTile,9)
     for (let tile of arrayOfTiles) {
         for (let t of tile) {
 
-             
             document.getElementById("small"+[j]+"-tile" + [i]).innerHTML = t.visual; 
             i++
             console.log(i)

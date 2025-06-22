@@ -120,11 +120,11 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
 
 
     function buildTiles(arrayOfTiles) {
-        let i = 1;
+        let i = 0;
         let j = 1;
         for (let arrayOfTile of arrayOfTiles) {
             for (let tilesArray of arrayOfTile) {
-                
+
                 for (let tiles of tilesArray) {
                     
                     for (let tile of tiles) {
@@ -135,8 +135,8 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
                             console.log(x,y)
                             console.log(tile)
 // document.getElementById("small"+[x]+"-tile" + [y]).innerHTML = tile.visual; 
-document.getElementById("small"+[x]+"-tile" + [y]).innerHTML = tile.visual; 
-                i++
+document.getElementById("small"+[x]+"-tile" + [y]).innerHTML = tile.visual, i; 
+                ++i
                 // console.log(i) 
                      }
                 }j++

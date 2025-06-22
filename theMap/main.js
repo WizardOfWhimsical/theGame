@@ -71,6 +71,12 @@ const centerTile = [
     [emptySpace, emptySpace, emptySpace]
 ]
 
+const myMap = [
+    [topLeftCornerTile, topCenterTile, topRightCornerTile],
+    [leftCenterTile, centerTile, rightCenterTile],
+    [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
+]
+
 /*
 once i build all the pieces i can then make\
 the build function loop through All the arrays
@@ -84,7 +90,6 @@ buildTiles(topLeftCornerTile, 1)
 buildTiles(topRightCornerTile, 3)
 buildTiles(bottomLeftCornerTile, 7)
 buildTiles(bottomRightCornerTile, 9)
-
 buildTiles(topCenterTile, 2)
 buildTiles(rightCenterTile, 6)
 buildTiles(bottomCenterTile, 8)
@@ -94,39 +99,27 @@ buildTiles(centerTile, 5)
 
 
 
-
-
-
-
-
-
-
-// function buildTiles(arrayOfTiles) {
-//     let i = 1;
-//     for (let tile of arrayOfTiles) {
-//         for (let t of tile) {
-//             // its prints the visual
-//             // now i can assign it to its square
-//             // console.log(t)
-             
-//             document.getElementById("small1-tile" + [i]).innerHTML = t.visual; 
-//             i++
-//             console.log(i)
-//             }
-//         }
-       
-//     }
-
-    function buildTiles(arrayOfTiles,square) {
+    function buildTiles(arrayOfTiles, num) {
         let i = 1;
-        let j = square;
-    for (let tile of arrayOfTiles) {
-        for (let t of tile) {
-
-            document.getElementById("small"+[j]+"-tile" + [i]).innerHTML = t.visual; 
+        let j = num;
+    for (let arrayOfTile of arrayOfTiles) {
+        for (let tiles of arrayOfTile) {
+           
+               document.getElementById("small"+[j]+"-tile" + [i]).innerHTML = tiles.visual; 
             i++
-            console.log(i)
+            // console.log(i) 
+            
             }
         }
        
     }
+
+    // function wholeMap() {
+//     let num = 1;
+//     for (let my of myMap) {
+//         buildTiles(my, num)
+//         num += 1;
+//     }
+// }
+
+// wholeMap()

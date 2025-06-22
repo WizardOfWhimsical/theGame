@@ -71,11 +71,11 @@ const centerTile = [
     [emptySpace, emptySpace, emptySpace]
 ]
 
-const myMap = [
-    [topLeftCornerTile, topCenterTile, topRightCornerTile],
-    [leftCenterTile, centerTile, rightCenterTile],
-    [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
-]
+// const myMap = [
+//     [topLeftCornerTile, topCenterTile, topRightCornerTile],
+//     [leftCenterTile, centerTile, rightCenterTile],
+//     [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
+// ]
 
 /*
 once i build all the pieces i can then make\
@@ -95,6 +95,36 @@ buildTiles(rightCenterTile, 6)
 buildTiles(bottomCenterTile, 8)
 buildTiles(leftCenterTile, 4)
 buildTiles(centerTile, 5)
+/*
+
+Now that the map is fully visable i need to place toon on screen and see if i can get him to move around with the key down events
+
+note
+thats how i did it, i made every square an obj i just gotta figure out how to reach into said obj
+
+[] get toon on screen
+[] make him move based on square value
+[] find enemy 
+[] tigger fade out and fade in
+[] create enemy obj
+[] go back to planning stage becuae battle squence/logic is next
+
+
+*/
+
+
+// multidiminsional arrays dude
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -119,14 +119,16 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
 // multidiminsional arrays dude
 
 
+/*
+now i have to set the x,y coor for a grid click event to target, pull values, and see if a character can go on that square.
+ */
+
     function buildTiles(arrayOfTiles) {
         let i = 0;
         let j = 1;
         for (let arrayOfTile of arrayOfTiles) {
             for (let tilesArray of arrayOfTile) {
-
                 for (let tiles of tilesArray) {
-                    
                     for (let tile of tiles) {
                         let x = j;
                          let y = (i % 9) + 1;   
@@ -134,10 +136,12 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
                             // console.log("Y repeated 1-9", y)
                             console.log(x,y)
                             console.log(tile)
-// document.getElementById("small"+[x]+"-tile" + [y]).innerHTML = tile.visual; 
-document.getElementById("small"+[x]+"-tile" + [y]).innerHTML = tile.visual, i; 
-                ++i
-                // console.log(i) 
+                        document.getElementById("small" + [x] + "-tile" + [y]).innerHTML = tile.visual; 
+                        ++i
+
+                        // console.log(i) 
+                        // document.getElementById("small"+[x]+"-tile" + [y]).innerHTML =  `${x}:${y}`; 
+                
                      }
                 }j++
             }

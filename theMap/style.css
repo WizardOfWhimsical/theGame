@@ -1,9 +1,9 @@
-/* *{
+*{
     box-sizing:border-box;
     margin: 0;
     padding: 0;
     border: 1px solid red;
-} */
+}
 
 body{
     width: 100vw;
@@ -26,9 +26,17 @@ body{
     display: flex;
     justify-content:center;
     align-items:center;
+    text-align:center;
 }
 
 .square{
     width:33%;
     height:100%;
+    /* padding: 1em; */
+    /* text-align:center; */
+
+}
+
+.square .row .square{
+    padding: 1em;
 }

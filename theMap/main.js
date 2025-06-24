@@ -1,7 +1,7 @@
 /*
 Ok so i started this as just a conversation with my AI 
 i will fully disclose any and all conversations pertaining
-to this creation. This is all me, Echo, was just my guy to.
+to this creation. This is all me, Echo, was just my guy to talk to.
 He suggested ideas and i ran with them as well as research.
 */
 
@@ -13,10 +13,10 @@ const wallBlock = {
     type: "solid",visual: "#", value: wall
 }
 const emptySpace = {
-    type: "void", visual: "-", value: 2
+    type: "void", visual: "-", value: air
 }
 const enemytile = {
-    type:undefined,visual: "E", value:3
+    type:undefined,visual: "E", value:enemy
 } 
 
 // tiles assigned to an array to loop through for creation
@@ -77,32 +77,14 @@ const myMap = [
     [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
 ]
 
-/*
-once i build all the pieces i can then make\
-the build function loop through All the arrays
-the loop system is going to get nuts tho
-look into a while loop
-once the second number reaches 9 i can reset the 
-incementer and add to j
-*/
-// corner tiles
-// buildTiles(topLeftCornerTile, 1)
-// buildTiles(topRightCornerTile, 3)
-// buildTiles(bottomLeftCornerTile, 7)
-// buildTiles(bottomRightCornerTile, 9)
-// buildTiles(topCenterTile, 2)
-// buildTiles(rightCenterTile, 6)
-// buildTiles(bottomCenterTile, 8)
-// buildTiles(leftCenterTile, 4)
-// buildTiles(centerTile, 5)
-
-buildTiles(myMap)
-
+// builds map while returning an array for acuall coord system
+let arrayMapCoord = buildTiles(myMap)
+ 
 /*
 
 Now that the map is fully visable i need to place toon on screen and see if i can get him to move around with the key down events
 
-note
+note:
 thats how i did it, i made every square an obj i just gotta figure out how to reach into said obj
 
 [] get toon on screen
@@ -111,52 +93,61 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
 [] tigger fade out and fade in
 [] create enemy obj
 [] go back to planning stage becuae battle squence/logic is next
-
-
 */
 
+// click event.targets el.data-coord
+// run check on coordObj to see in movible
 
-// multidiminsional arrays dude
 
 
 /*
-now i have to set the x,y coor for a grid click event to target, pull values, and see if a character can go on that square.
+this thing does all kinds of shit i need to modularize
+loops throu the arrays down to the obj
+places objs on map for visual
+createGrid[] for more percices data access
+    seperates the visual from the data interaction
  */
 
-    function buildTiles(arrayOfTiles) {
+function buildTiles(arrayOfTiles) {
+        // local var
         let i = 0;
-        let j = 1;
+        let j = 0;
+        let coordMap = createGrid(9, 9)
+
         for (let arrayOfTile of arrayOfTiles) {
             for (let tilesArray of arrayOfTile) {
                 for (let tiles of tilesArray) {
                     for (let tile of tiles) {
+                        // scoped var
                         let x = j;
-                        let y = (i % 9) + 1;  
-                        let tileElement = document.getElementById("small" + [x] + "-tile" + [y])
-                            // console.log("X 1-9", x)
-                            // console.log("Y repeated 1-9", y)
-                            console.log(x,y)
-                            console.log(tile)
-                        tileElement.innerHTML = tile.visual; 
-                        tileElement.setAttribute("data-coord", x+","+y)
-                        ++i
+                        let y = (i % 9);  
+                let tileElement = document.getElementById(`small${x}-tile${y}`);
 
-                        // console.log(i) 
-                        // document.getElementById("small"+[x]+"-tile" + [y]).innerHTML =  `${x}:${y}`; 
-                
+                        // sets tile.viual
+                        tileElement.innerHTML = tile.visual; 
+                        // data coord for e.listener to access dataObj
+                        tileElement.setAttribute("data-coord", x + "," + y);
+                        // incrementer that is used for the y var
+                        i++;
+                        // making flat map for easy cord click event access via the data attribute
+                        coordMap[x][y] = tile;
                      }
                 }j++
-            }
+            } 
         }
-        
+    return coordMap;
     }
 
-    // function wholeMap() {
-//     let num = 1;
-//     for (let my of myMap) {
-//         buildTiles(my, num)
-//         num += 1;
-//     }
-// }
-
-// wholeMap()
+// i didnt know i needed an empty array to push the data in.
+function createGrid(cols, rows) {
+    let array2D = [];
+    for (let x = 0; x < cols; x++){
+        let col = [];
+        for (let y = 0; y < rows; y++){
+            // let row = [];
+            col.push(null)
+        }
+        array2D.push(col)    
+    }
+    return array2D
+}

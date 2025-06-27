@@ -77,7 +77,7 @@ const myMap = [
     [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
 ]
 
-// builds map while returning an array for acuall coord system
+// builds map while returning an array for actual coord system with x,y
 let arrayMapCoord = buildTiles(myMap)
  
 /*
@@ -87,6 +87,8 @@ Now that the map is fully visable i need to place toon on screen and see if i ca
 note:
 thats how i did it, i made every square an obj i just gotta figure out how to reach into said obj
 
+[] click.event pulls (x,y) value
+    [] set up fail safes for clicking outside div
 [] get toon on screen
 [] make him move based on square value
 [] find enemy 
@@ -97,7 +99,12 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
 
 // click event.targets el.data-coord
 // run check on coordObj to see in movible
+const gridMap = document.getElementById("gridContainer");
 
+gridMap.addEventListener("click", (e) => {
+    let target = e.target;
+    let coordnates = target.data-coord.value
+})
 
 
 /*

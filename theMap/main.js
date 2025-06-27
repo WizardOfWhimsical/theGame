@@ -1,23 +1,27 @@
 /*
 Ok so i started this as just a conversation with my AI 
 i will fully disclose any and all conversations pertaining
-to this creation. This is all me, Echo, was just my guy to.
+to this creation. This is all me, Echo, was just my guy to talk to.
 He suggested ideas and i ran with them as well as research.
 */
 
 // assigned numeric values for easy conditionals later
-const enemy = 3, air = 2, wall = 1;
+const enemy = 3, air = 2, wall = 1, player = 0;
 
 // object tiles for map
 const wallBlock = {
     type: "solid",visual: "#", value: wall
 }
 const emptySpace = {
-    type: "void", visual: "-", value: 2
+    type: "void", visual: "-", value: air
 }
 const enemytile = {
-    type:undefined,visual: "E", value:3
+    type:undefined,visual: "E", value:enemy
 } 
+
+character = {
+type: null,visual: "@", value: player
+}
 
 // tiles assigned to an array to loop through for creation
 const topLeftCornerTile = [
@@ -77,86 +81,113 @@ const myMap = [
     [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
 ]
 
+
+ 
 /*
-once i build all the pieces i can then make\
-the build function loop through All the arrays
-the loop system is going to get nuts tho
-look into a while loop
-once the second number reaches 9 i can reset the 
-incementer and add to j
-*/
-// corner tiles
-// buildTiles(topLeftCornerTile, 1)
-// buildTiles(topRightCornerTile, 3)
-// buildTiles(bottomLeftCornerTile, 7)
-// buildTiles(bottomRightCornerTile, 9)
-// buildTiles(topCenterTile, 2)
-// buildTiles(rightCenterTile, 6)
-// buildTiles(bottomCenterTile, 8)
-// buildTiles(leftCenterTile, 4)
-// buildTiles(centerTile, 5)
-
-buildTiles(myMap)
-
-/*
-
-Now that the map is fully visable i need to place toon on screen and see if i can get him to move around with the key down events
-
-note
-thats how i did it, i made every square an obj i just gotta figure out how to reach into said obj
-
-[] get toon on screen
+[x] click.event pulls (x,y) value
+    [] set up fail safes for clicking outside div
+    [] toon moves, change old spot to void
+[x] get toon on screen
 [] make him move based on square value
 [] find enemy 
 [] tigger fade out and fade in
 [] create enemy obj
 [] go back to planning stage becuae battle squence/logic is next
-
-
 */
 
+// builds map while returning an array for actual coord system with x,y
+let arrayMapCoord = buildTiles(myMap)
 
-// multidiminsional arrays dude
+//should be global just to be safe
+const gridMap = document.getElementById("gridContainer");
+
+gridMap.addEventListener("click", (e) => {
+    let target = e.target;
+    let coordnates = target.dataset["coord"];
+    // console.log(coordnates);
+    let [x, y] = coordnates.split(",").map(Number);
+    console.log(x, y)
+
+
+updating2dArray(arrayMapCoord[x][y])
+
+
+})
 
 
 /*
-now i have to set the x,y coor for a grid click event to target, pull values, and see if a character can go on that square.
+hope to replace all this with a tile class and extends to map
+seperating each oof these things into methods
  */
 
-    function buildTiles(arrayOfTiles) {
+function buildTiles(arrayOfTiles) {
+        // local var
         let i = 0;
-        let j = 1;
+        let j = 0;
+        let coordMap = createGrid(9, 9)
+
         for (let arrayOfTile of arrayOfTiles) {
             for (let tilesArray of arrayOfTile) {
                 for (let tiles of tilesArray) {
                     for (let tile of tiles) {
+                        // scoped var
                         let x = j;
-                        let y = (i % 9) + 1;  
-                        let tileElement = document.getElementById("small" + [x] + "-tile" + [y])
-                            // console.log("X 1-9", x)
-                            // console.log("Y repeated 1-9", y)
-                            console.log(x,y)
-                            console.log(tile)
-                        tileElement.innerHTML = tile.visual; 
-                        tileElement.setAttribute("data-coord", x+","+y)
-                        ++i
+                        let y = (i % 9);  
+                let tileElement = document.getElementById(`small${x}-tile${y}`);
 
-                        // console.log(i) 
-                        // document.getElementById("small"+[x]+"-tile" + [y]).innerHTML =  `${x}:${y}`; 
-                
+                        // sets tile.viual
+                        tileElement.innerHTML = tile.visual; 
+                        // data coord for e.listener to access dataObj
+                        tileElement.setAttribute("data-coord", x + "," + y);
+                        // incrementer that is used for the y var
+                        i++;
+                        // making flat map for easy cord click event access via the data attribute
+                        coordMap[x][y] = tile;
                      }
                 }j++
-            }
+            } 
         }
-        
+    return coordMap;
     }
 
-    // function wholeMap() {
-//     let num = 1;
-//     for (let my of myMap) {
-//         buildTiles(my, num)
-//         num += 1;
-//     }
-// }
+// i didnt know i needed an empty array to push the data in.
+//keep this helper guy, doing big things lmfao
+function createGrid(cols, rows) {
+    let array2D = [];
+    for (let x = 0; x < cols; x++){
+        let col = [];
+        for (let y = 0; y < rows; y++){
+            // let row = [];
+            col.push(null)
+        }
+        array2D.push(col)    
+    }
+    return array2D
+}
 
-// wholeMap()
+// const enemy = 3, air = 2, wall = 1;
+
+function updating2dArray(array) {
+    //updates 2d array
+    let clickedPosition = array
+    console.log(clickedPosition)
+
+    if (clickedPosition.value === 3) {
+        //enemy trigger logic
+        console.log("enemy Inbound");
+    } else if (clickedPosition.value === 1) {
+        //wall logic
+            console.log("thats a wall")
+    } else (
+        clickedPosition=character
+    )
+
+console.log(clickedPosition)
+}
+
+function updatingScreen() {
+    //puts character onscreen
+    if (arrayMapCoord[x][y] !== 2) {
+        return
+    }else(document.getElementById(`small${x}-tile${y}`).innerHTML = character.visual)
+}

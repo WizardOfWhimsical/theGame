@@ -6,7 +6,7 @@ He suggested ideas and i ran with them as well as research.
 */
 
 // assigned numeric values for easy conditionals later
-const enemy = 3, air = 2, wall = 1;
+const enemy = 3, air = 2, wall = 1, player = 0;
 
 // object tiles for map
 const wallBlock = {
@@ -18,6 +18,10 @@ const emptySpace = {
 const enemytile = {
     type:undefined,visual: "E", value:enemy
 } 
+
+character = {
+type: null,visual: "@", value: player
+}
 
 // tiles assigned to an array to loop through for creation
 const topLeftCornerTile = [
@@ -77,19 +81,13 @@ const myMap = [
     [bottomLeftCornerTile, bottomCenterTile, bottomRightCornerTile]
 ]
 
-// builds map while returning an array for actual coord system with x,y
-let arrayMapCoord = buildTiles(myMap)
+
  
 /*
-
-Now that the map is fully visable i need to place toon on screen and see if i can get him to move around with the key down events
-
-note:
-thats how i did it, i made every square an obj i just gotta figure out how to reach into said obj
-
-[] click.event pulls (x,y) value
+[x] click.event pulls (x,y) value
     [] set up fail safes for clicking outside div
-[] get toon on screen
+    [] toon moves, change old spot to void
+[x] get toon on screen
 [] make him move based on square value
 [] find enemy 
 [] tigger fade out and fade in
@@ -97,22 +95,29 @@ thats how i did it, i made every square an obj i just gotta figure out how to re
 [] go back to planning stage becuae battle squence/logic is next
 */
 
-// click event.targets el.data-coord
-// run check on coordObj to see in movible
+// builds map while returning an array for actual coord system with x,y
+let arrayMapCoord = buildTiles(myMap)
+
+//should be global just to be safe
 const gridMap = document.getElementById("gridContainer");
 
 gridMap.addEventListener("click", (e) => {
     let target = e.target;
-    let coordnates = target.data-coord.value
+    let coordnates = target.dataset["coord"];
+    // console.log(coordnates);
+    let [x, y] = coordnates.split(",").map(Number);
+    console.log(x, y)
+
+
+updating2dArray(arrayMapCoord[x][y])
+
+
 })
 
 
 /*
-this thing does all kinds of shit i need to modularize
-loops throu the arrays down to the obj
-places objs on map for visual
-createGrid[] for more percices data access
-    seperates the visual from the data interaction
+hope to replace all this with a tile class and extends to map
+seperating each oof these things into methods
  */
 
 function buildTiles(arrayOfTiles) {
@@ -146,6 +151,7 @@ function buildTiles(arrayOfTiles) {
     }
 
 // i didnt know i needed an empty array to push the data in.
+//keep this helper guy, doing big things lmfao
 function createGrid(cols, rows) {
     let array2D = [];
     for (let x = 0; x < cols; x++){
@@ -157,4 +163,31 @@ function createGrid(cols, rows) {
         array2D.push(col)    
     }
     return array2D
+}
+
+// const enemy = 3, air = 2, wall = 1;
+
+function updating2dArray(array) {
+    //updates 2d array
+    let clickedPosition = array
+    console.log(clickedPosition)
+
+    if (clickedPosition.value === 3) {
+        //enemy trigger logic
+        console.log("enemy Inbound");
+    } else if (clickedPosition.value === 1) {
+        //wall logic
+            console.log("thats a wall")
+    } else (
+        clickedPosition=character
+    )
+
+console.log(clickedPosition)
+}
+
+function updatingScreen() {
+    //puts character onscreen
+    if (arrayMapCoord[x][y] !== 2) {
+        return
+    }else(document.getElementById(`small${x}-tile${y}`).innerHTML = character.visual)
 }

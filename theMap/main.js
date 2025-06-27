@@ -108,11 +108,11 @@ gridMap.addEventListener("click", (e) => {
     let [x, y] = coordnates.split(",").map(Number);
     console.log(x, y)
 
-
-    updating2dArray(arrayMapCoord[x][y])
+// DRY!
+    
     updatingScreen(arrayMapCoord[x][y], x, y)
-
-console.log(arrayMapCoord)
+updating2dArray(arrayMapCoord[x][y],arrayMapCoord, x, y)
+// console.log(arrayMapCoord)
 })
 
 
@@ -171,10 +171,10 @@ function createGrid(cols, rows) {
 // const enemy = 3, air = 2, wall = 1;
 //thats not an array,it is the specific obj 
 //in the array, rethink this formula
-function updating2dArray(array) {
+function updating2dArray(obj,arraySpot, xPos, yPos) {
     //updates 2d array
-    let clickedPosition = array
-    console.log(clickedPosition)
+    let clickedPosition = obj
+    // console.log(clickedPosition)
 
     if (clickedPosition.value === 3) {
         //enemy trigger logic
@@ -183,11 +183,11 @@ function updating2dArray(array) {
         //wall logic
             console.log("thats a wall")
     } else (
-        clickedPosition=character
+        arraySpot[xPos][yPos] = character
     )
 
-    console.log(clickedPosition)
-    console.log(arrayMapCoord)
+    console.log("*******")
+    console.log(arraySpot)
 }
 
 function updatingScreen(obj,xPos,yPos) {

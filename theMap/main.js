@@ -109,9 +109,10 @@ gridMap.addEventListener("click", (e) => {
     console.log(x, y)
 
 
-updating2dArray(arrayMapCoord[x][y])
+    updating2dArray(arrayMapCoord[x][y])
+    updatingScreen(arrayMapCoord[x][y], x, y)
 
-
+console.log(arrayMapCoord)
 })
 
 
@@ -150,6 +151,8 @@ function buildTiles(arrayOfTiles) {
     return coordMap;
     }
 
+
+    //NEED POSITIONS TO UPDATE PROPERLY
 // i didnt know i needed an empty array to push the data in.
 //keep this helper guy, doing big things lmfao
 function createGrid(cols, rows) {
@@ -166,7 +169,8 @@ function createGrid(cols, rows) {
 }
 
 // const enemy = 3, air = 2, wall = 1;
-
+//thats not an array,it is the specific obj 
+//in the array, rethink this formula
 function updating2dArray(array) {
     //updates 2d array
     let clickedPosition = array
@@ -182,12 +186,18 @@ function updating2dArray(array) {
         clickedPosition=character
     )
 
-console.log(clickedPosition)
+    console.log(clickedPosition)
+    console.log(arrayMapCoord)
 }
 
-function updatingScreen() {
+function updatingScreen(obj,xPos,yPos) {
     //puts character onscreen
-    if (arrayMapCoord[x][y] !== 2) {
-        return
-    }else(document.getElementById(`small${x}-tile${y}`).innerHTML = character.visual)
+    //i feel like i should abstract:
+    // [] the character.visual
+    // [] x,y
+
+    if (obj.value !== 2) {
+        console.log("not valid spot")
+    } else (document.getElementById(`small${xPos}-tile${yPos}`).innerHTML = character.visual)
+    debugger;
 }

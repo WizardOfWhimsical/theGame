@@ -6,7 +6,7 @@ He suggested ideas and i ran with them as well as research.
 */
 
 // assigned numeric values for easy conditionals later
-const enemy = 3, air = 2, wall = 1, player = 0;
+const enemy = 3, air = 2, wall = 1, player = 9;
 
 // object tiles for map
 const wallBlock = {
@@ -108,11 +108,23 @@ gridMap.addEventListener("click", (e) => {
     let [x, y] = coordnates.split(",").map(Number);
     console.log(x, y)
 
-// DRY!
-    
-    updatingScreen(arrayMapCoord[x][y], x, y)
-updating2dArray(arrayMapCoord[x][y],arrayMapCoord, x, y)
-// console.log(arrayMapCoord)
+  
+
+
+
+    // DRY! everytime i look ate this.....CLASS OBJ!
+    // and this can be done better goober, destructure in function
+    // updating2dArray(arrayMapCoord, x, y)
+    // isCharacterOnScreen(arrayMapCoord, )
+
+  //check to see if guy is on screen
+    if (!isCharacterOnScreen(arrayMapCoord)) {
+        updatingScreen(arrayMapCoord[x][y], x, y)
+        updating2dArray(arrayMapCoord, x, y)
+    }else{console.log("is this hitting?")}
+
+    console.log(arrayMapCoord[0][0])
+    console.log(isCharacterOnScreen(arrayMapCoord))
 })
 
 
@@ -171,9 +183,11 @@ function createGrid(cols, rows) {
 // const enemy = 3, air = 2, wall = 1;
 //thats not an array,it is the specific obj 
 //in the array, rethink this formula
-function updating2dArray(obj,arraySpot, xPos, yPos) {
+function updating2dArray(arraySpot, xPos, yPos) {
     //updates 2d array
-    let clickedPosition = obj
+    // let clickedPosition = obj
+    let clickedPosition = arraySpot[xPos][yPos]
+
     // console.log(clickedPosition)
 
     if (clickedPosition.value === 3) {
@@ -186,18 +200,28 @@ function updating2dArray(obj,arraySpot, xPos, yPos) {
         arraySpot[xPos][yPos] = character
     )
 
-    console.log("*******")
-    console.log(arraySpot)
+    // console.log("*******")
+    // console.log(arraySpot)
 }
 
 function updatingScreen(obj,xPos,yPos) {
-    //puts character onscreen
-    //i feel like i should abstract:
-    // [] the character.visual
-    // [] x,y
-
     if (obj.value !== 2) {
         console.log("not valid spot")
+        return
     } else (document.getElementById(`small${xPos}-tile${yPos}`).innerHTML = character.visual)
-    debugger;
+}
+
+function isCharacterOnScreen(arrayOfTiles) {
+    for (let arrayOfTile of arrayOfTiles) {
+        for (let tilesArray of arrayOfTile) {
+            // for (let tiles of tilesArray) {
+                // for (let tile of tiles) {
+            if (tilesArray.value === 9) {
+                // console.log("player already exists")
+                        return true;
+                    } 
+                // }
+            // }
+        }
+    } return false;
 }
